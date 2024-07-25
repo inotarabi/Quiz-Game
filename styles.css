@@ -1,0 +1,99 @@
+body {
+    display: flex;
+    flex-direction: column;
+    margin: 20px;
+    padding: 0px;
+    background-color: #2f3c50;
+}
+
+.title {
+    font-family: "Courier New", Courier, monospace;
+    text-align: center;
+    color: yellow;
+    border: 3px solid yellow;
+    border-radius: 10px;
+    padding: 0px 300px 0px 300px;
+    margin: 0 auto;
+}
+
+#start-screen {
+    display: flex;
+    flex-direction: column;
+}
+
+.start-main {
+    display: flex;
+    justify-content: space-between;
+}
+
+.instructions {
+    margin: 50px 0px 0px 200px;
+    font-family: "Courier New", Courier, monospace;
+    font-size: x-large;
+    font-weight: bold;
+    max-width: 500px;
+    color: rgb(255, 255, 0);
+}
+
+.difficulty-options {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 300px;
+    margin: 0px 200px 0px 0px;
+    gap: 25px;
+}
+
+button {
+    height: 75px;
+    font-weight: bold;
+    font-family: "Courier New", Courier, monospace;
+    font-size: x-large;
+}
+
+#easy-button {
+    color: #1d7e3d;
+    background-color: rgb(182, 252, 182);
+    border: 3px solid #2e9551;
+    border-radius: 10px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+#easy-button:hover {
+    color: white;
+    background-color: #2e9551;
+}
+
+#medium-button {
+    color: #ce9700;
+    background-color: #ecdeb5;
+    border: 3px solid #cc9600;
+    border-radius: 10px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+#medium-button:hover {
+    color: white;
+    background-color: #cc9600;
+}
+
+#hard-button {
+    color: #ff0000;
+    background-color: #ee9494;
+    border: 3px solid #ff3434;
+    border-radius: 10px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+#hard-button:hover {
+    color: white;
+    background-color: #ff3434;
+}
+
+#quiz-screen {
+    display: none;
+}
+
+#end-screen {
+    display: none;
+}
