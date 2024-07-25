@@ -1,13 +1,35 @@
+@font-face {
+    font-family: digital;
+    src: url(fonts/digital-7.ttf);
+}
+
+@font-face {
+    font-family: quizTitle;
+    src: url(fonts/pricedown\ bl.otf);
+}
+
+@font-face {
+    font-family: quiz;
+    src: url(fonts/Cafe\ Francoise_D.otf);
+}
+
+.rakkas-regular {
+    font-family: "Rakkas", serif;
+    font-weight: 300;
+    font-style: normal;
+}
+
 body {
     display: flex;
     flex-direction: column;
     margin: 20px;
     padding: 0px;
-    background-color: #2f3c50;
+    background-color: #56585c;
+    /* background-color: #2f3c50; */
 }
 
 .title {
-    font-family: "Courier New", Courier, monospace;
+    font-family: quizTitle;
     text-align: center;
     color: yellow;
     border: 3px solid yellow;
@@ -16,8 +38,9 @@ body {
     margin: 0 auto;
 }
 
+/* main start screen */
 #start-screen {
-    display: flex;
+    display: none;
     flex-direction: column;
 }
 
@@ -56,12 +79,18 @@ button {
     background-color: rgb(182, 252, 182);
     border: 3px solid #2e9551;
     border-radius: 10px;
-    transition: background-color 0.3s, color 0.3s;
+    transition: background-color 0.3s, color 0.3s, transform 0.3s;
 }
 
 #easy-button:hover {
     color: white;
+    transform: scale(1.03);
     background-color: #2e9551;
+}
+
+#easy-button:active {
+    border: 0px;
+    background-color: #2e9550c0;
 }
 
 #medium-button {
@@ -69,12 +98,18 @@ button {
     background-color: #ecdeb5;
     border: 3px solid #cc9600;
     border-radius: 10px;
-    transition: background-color 0.3s, color 0.3s;
+    transition: background-color 0.3s, color 0.3s, transform 0.3s;
 }
 
 #medium-button:hover {
     color: white;
+    transform: scale(1.03);
     background-color: #cc9600;
+}
+
+#medium-button:active {
+    border: 0px;
+    background-color: #cc9600ea;
 }
 
 #hard-button {
@@ -82,16 +117,87 @@ button {
     background-color: #ee9494;
     border: 3px solid #ff3434;
     border-radius: 10px;
-    transition: background-color 0.3s, color 0.3s;
+    transition: background-color 0.3s, color 0.3s, transform 0.3s;
 }
 
 #hard-button:hover {
     color: white;
+    transform: scale(1.03);
     background-color: #ff3434;
 }
 
-#quiz-screen {
-    display: none;
+#hard-button:active {
+    border: 0px;
+    background-color: #ff3434a8;
+}
+
+/* main question screen */
+#question-screen {
+    display: flex;
+    flex-direction: column;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.question-number {
+    color: white;
+    font-size: 40px;
+    font-family: quiz;
+}
+
+.timer {
+    color: white;
+    font-family: digital;
+    font-size: 50px;
+    text-align: center;
+}
+
+.score {
+    color: white;
+    font-size: 40px;
+    font-family: quiz;
+}
+
+.question-container {
+    display: flex;
+    color: white;
+    /* border: 3px solid yellow; */
+    font-family: quiz;
+    font-size: 30px;
+    max-width: 1000px;
+    border-radius: 10px;
+    padding: 20px 300px 20px 300px;
+    margin: 0 auto;
+}
+
+.answer-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+}
+
+.answer-options {
+    max-width: 700px;
+    border-radius: 10px;
+    font-family: quiz;
+    text-align: left;
+    border: 5px solid yellow;
+    box-shadow: 3px 2px 5px black;
+    transition: transform 0.3s, border 0.3s, background-color 0.3s;
+}
+
+.answer-options:hover {
+    transform: scale(1.03);
+}
+
+.answer-options:active {
+    border: 5px solid rgba(255, 255, 132, 0.644);
+    background-color: rgba(255, 255, 255, 0.753);
 }
 
 #end-screen {
