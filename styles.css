@@ -13,6 +13,36 @@
     src: url(fonts/Cafe\ Francoise_D.otf);
 }
 
+@keyframes SlideInFromTop {
+    from {
+        transform: translateY(-500px);
+    }
+
+    to {
+        transform: translateY(0);
+    }
+}
+
+@keyframes SlideInFromLeft {
+    from {
+        transform: translateX(-1128px);
+    }
+
+    to {
+        transform: translateX(0px);
+    }
+}
+
+@keyframes SlideInFromBottom {
+    from {
+        transform: translateY(+856px);
+    }
+
+    to {
+        transform: translateY(0px);
+    }
+}
+
 .rakkas-regular {
     font-family: "Rakkas", serif;
     font-weight: 300;
@@ -22,8 +52,10 @@
 body {
     display: flex;
     flex-direction: column;
+    justify-content: center;
     margin: 20px;
     padding: 0px;
+    height: 100vh;
     background-color: #56585c;
     /* background-color: #2f3c50; */
 }
@@ -133,7 +165,7 @@ button {
 
 /* main question screen */
 #question-screen {
-    display: flex;
+    display: none;
     flex-direction: column;
 }
 
@@ -201,5 +233,58 @@ header {
 }
 
 #end-screen {
-    display: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.final-score-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.final-score-title {
+    animation: SlideInFromTop 1.5s forwards;
+}
+
+.final-score {
+    transform: translateX(-1128px);
+    animation: SlideInFromLeft 2s forwards;
+}
+
+.final-score,
+.final-score-title {
+    color: white;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    font-family: quiz;
+    font-size: 60px;
+}
+
+.end-screen-buttons-container {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    margin: 10px;
+    gap: 20px;
+}
+
+.end-screen-buttons {
+    transform: translateY(+856px);
+    animation: SlideInFromBottom 1s forwards;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    max-width: 600px;
+    border-radius: 10px;
+}
+
+.end-screen-buttons:hover {
+}
+
+.end-screen-buttons:active {
 }
