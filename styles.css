@@ -52,7 +52,7 @@
 body {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    /* justify-content: center; remember to change in JS for end screen */
     margin: 20px;
     padding: 0px;
     height: 100vh;
@@ -72,7 +72,7 @@ body {
 
 /* main start screen */
 #start-screen {
-    display: none;
+    display: flex;
     flex-direction: column;
 }
 
@@ -233,7 +233,7 @@ header {
 }
 
 #end-screen {
-    display: flex;
+    display: none;
     flex-direction: column;
     justify-content: center;
     align-items: center;
