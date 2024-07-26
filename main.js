@@ -10,16 +10,21 @@ const questionScreen = document.querySelector("#question-screen");
 const endScreen = document.querySelector("#end-screen");
 
 const questionContainer = document.querySelector(".question-container");
+
+const answerChoicesAll = document.querySelectorAll(".answer-options");
 const answerChoiceOne = document.querySelector("#option1");
 const answerChoiceTwo = document.querySelector("#option2");
 const answerChoiceThree = document.querySelector("#option3");
 const answerChoiceFour = document.querySelector("#option4");
+
+const nextQuestionButton = document.querySelector(".next-question");
 
 let arrayOfQuestions = [];
 let answerChoices = [];
 let actualAnswerChoices = [];
 let incorrectAnswerChoices = [];
 let isQuizOn = false;
+let isQuestionDone = false;
 
 let question = "";
 let correctAnswer = "";
@@ -27,6 +32,8 @@ let option1 = "";
 let option2 = "";
 let option3 = "";
 let option4 = "";
+let chosenChoice = "";
+let currentQuestionIndex = 0;
 
 // API links based on difficulty
 easyAPILink =
@@ -52,36 +59,81 @@ difficultyButtonsAll.forEach((button) => {
         // change screens
         startScreen.style.display = "none";
         questionScreen.style.display = "flex";
+
         isQuizOn = true;
+        quizGameLoopAndReset(arrayOfQuestions);
     });
 });
+
+answerChoicesAll.forEach((button) => {
+    button.addEventListener("click", () => {
+        if (isQuestionDone) return;
+
+        if (button.textContent.substring(2) === correctAnswer) {
+            button.style.backgroundColor = "green";
+        } else {
+            button.style.backgroundColor = "red";
+        }
+
+        isQuestionDone = true;
+
+        setTimeout(() => {
+            currentQuestionIndex++;
+            isQuestionDone = false;
+            displayNextQuestion();
+        }, 2000);
+    });
+});
+
+nextQuestionButton.addEventListener("click", () => {
+    currentQuestionIndex++;
+    if (currentQuestionIndex > 9) {
+        currentQuestionIndex = 0;
+    }
+    console.log(currentQuestionIndex);
+});
+
+function displayNextQuestion() {
+    if (currentQuestionIndex >= arrayOfQuestions.length) {
+        endQuiz();
+        return;
+    }
+
+    setVariables(arrayOfQuestions, currentQuestionIndex);
+    displayQuestionComponents();
+    resetAnswerStyles();
+}
+
+function resetAnswerStyles() {
+    answerChoicesAll.forEach((button) => {
+        button.style.backgroundColor = "";
+    });
+}
+
+function endQuiz() {
+    questionScreen.style.display = "none";
+    endScreen.style.display = "flex";
+}
 
 async function fetchAPIGetData(difficultyChosenLink) {
     try {
         const response = await fetch(difficultyChosenLink);
         const data = await response.json();
         arrayOfQuestions = data.results;
-
-        question = arrayOfQuestions[0].question;
-        correctAnswer = arrayOfQuestions[0].correct_answer;
-        incorrectAnswerChoices = arrayOfQuestions[0].incorrect_answers;
-
-        answerChoices = incorrectAnswerChoices.slice();
-        answerChoices.push(correctAnswer);
-        answerChoices = shuffleArray(answerChoices).slice();
-
-        displayQuestionComponents();
-
-        // for test purposes
-        console.log(question);
-        console.log(correctAnswer);
-        console.log(incorrectAnswerChoices);
-        console.log(answerChoices);
-
         return arrayOfQuestions;
     } catch (error) {
         console.error(error);
     }
+}
+
+function setVariables(questionArray, nextQuestion) {
+    question = questionArray[nextQuestion].question;
+    correctAnswer = questionArray[nextQuestion].correct_answer;
+    incorrectAnswerChoices = questionArray[nextQuestion].incorrect_answers;
+
+    answerChoices = incorrectAnswerChoices.slice();
+    answerChoices.push(correctAnswer);
+    answerChoices = shuffleArray(answerChoices).slice();
 }
 
 function displayQuestionComponents() {
@@ -96,8 +148,6 @@ function displayQuestionComponents() {
     answerChoiceThree.textContent = `C ${option3}`;
     answerChoiceFour.textContent = `D ${option4}`;
 }
-
-function startQuiz() {}
 
 function shuffleArray(array) {
     let arrayLength = array.length;

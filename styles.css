@@ -214,6 +214,7 @@ header {
 }
 
 .answer-options {
+    background-color: white;
     width: 600px;
     border-radius: 10px;
     font-family: quiz;
@@ -225,11 +226,29 @@ header {
 
 .answer-options:hover {
     transform: scale(1.03);
+    background-color: white;
 }
 
 .answer-options:active {
     border: 5px solid rgba(255, 255, 132, 0.644);
     background-color: rgba(255, 255, 255, 0.753);
+}
+
+.next-question {
+    background-color: white;
+    width: 600px;
+    border-radius: 10px;
+    font-family: quiz;
+    text-align: left;
+    border: 5px solid yellow;
+    box-shadow: 3px 2px 5px black;
+    transition: transform 0.3s, border 0.3s, background-color 0.3s;
+    display: none;
+}
+
+.next-question:hover {
+    transform: scale(1.03);
+    background-color: white;
 }
 
 #end-screen {
