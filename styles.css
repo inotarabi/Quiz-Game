@@ -13,6 +13,16 @@
     src: url(fonts/Cafe\ Francoise_D.otf);
 }
 
+@font-face {
+    font-family: gameFont;
+    src: url(fonts/game_sans_serif_7.ttf);
+}
+
+@font-face {
+    font-family: brick;
+    src: url(fonts/Brick\ Comic.ttf);
+}
+
 @keyframes SlideInFromTop {
     from {
         transform: translateY(-500px);
@@ -177,7 +187,7 @@ header {
 .question-number {
     color: white;
     font-size: 40px;
-    font-family: quiz;
+    font-family: gameFont;
 }
 
 .timer {
@@ -190,14 +200,14 @@ header {
 .score {
     color: white;
     font-size: 40px;
-    font-family: quiz;
+    font-family: gameFont;
 }
 
 .question-container {
     display: flex;
     color: white;
     /* border: 3px solid yellow; */
-    font-family: quiz;
+    font-family: gameFont;
     font-size: 30px;
     max-width: 1000px;
     border-radius: 10px;
@@ -217,7 +227,7 @@ header {
     background-color: white;
     width: 600px;
     border-radius: 10px;
-    font-family: quiz;
+    font-family: gameFont;
     text-align: left;
     border: 5px solid yellow;
     box-shadow: 3px 2px 5px black;
@@ -238,7 +248,7 @@ header {
     background-color: white;
     width: 600px;
     border-radius: 10px;
-    font-family: quiz;
+    font-family: gameFont;
     text-align: left;
     border: 5px solid yellow;
     box-shadow: 3px 2px 5px black;
@@ -278,7 +288,7 @@ header {
     display: flex;
     justify-content: center;
     text-align: center;
-    font-family: quiz;
+    font-family: gameFont;
     font-size: 60px;
 }
 

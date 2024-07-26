@@ -11,6 +11,7 @@ const endScreen = document.querySelector("#end-screen");
 
 const questionContainer = document.querySelector(".question-container");
 
+// answer choice consts
 const answerChoicesAll = document.querySelectorAll(".answer-options");
 const answerChoiceOne = document.querySelector("#option1");
 const answerChoiceTwo = document.querySelector("#option2");
@@ -19,13 +20,29 @@ const answerChoiceFour = document.querySelector("#option4");
 
 const nextQuestionButton = document.querySelector(".next-question");
 
+// score consts
+const score = document.querySelector(".score");
+const finalScore = document.querySelector(".final-score");
+
+const currentQuestionNumber = document.querySelector(".question-number");
+
 let arrayOfQuestions = [];
 let answerChoices = [];
 let actualAnswerChoices = [];
 let incorrectAnswerChoices = [];
-let isQuizOn = false;
 let isQuestionDone = false;
 
+// variable that tracks game mode
+// let gameMode = "";
+
+// timer variables and consts
+// const timer1 = document.querySelector(".timer");
+// let timerMins = 0;
+// let timerSecondsOnes = 0;
+// let timerSecondsTens = 3;
+// let currentTimerId;
+
+let currentScore = 0;
 let question = "";
 let correctAnswer = "";
 let option1 = "";
@@ -60,14 +77,16 @@ difficultyButtonsAll.forEach((button) => {
         startScreen.style.display = "none";
         questionScreen.style.display = "flex";
 
-        isQuizOn = true;
-        quizGameLoopAndReset(arrayOfQuestions);
+        setVariables(arrayOfQuestions, currentQuestionIndex);
+        displayQuestionComponents();
     });
 });
 
 answerChoicesAll.forEach((button) => {
     button.addEventListener("click", () => {
-        if (isQuestionDone) return;
+        if (isQuestionDone) {
+            return;
+        }
 
         if (button.textContent.substring(2) === correctAnswer) {
             button.style.backgroundColor = "green";
@@ -76,6 +95,7 @@ answerChoicesAll.forEach((button) => {
         }
 
         isQuestionDone = true;
+        scoreCalc();
 
         setTimeout(() => {
             currentQuestionIndex++;
@@ -93,6 +113,16 @@ nextQuestionButton.addEventListener("click", () => {
     console.log(currentQuestionIndex);
 });
 
+function scoreCalc() {
+    answerChoicesAll.forEach((button) => {
+        if (button.style.backgroundColor == "green") {
+            currentScore++;
+            score.textContent = `Score: ${currentScore}`;
+            console.log(currentScore);
+        }
+    });
+}
+
 function displayNextQuestion() {
     if (currentQuestionIndex >= arrayOfQuestions.length) {
         endQuiz();
@@ -101,6 +131,7 @@ function displayNextQuestion() {
 
     setVariables(arrayOfQuestions, currentQuestionIndex);
     displayQuestionComponents();
+    // timerTick();
     resetAnswerStyles();
 }
 
@@ -113,6 +144,7 @@ function resetAnswerStyles() {
 function endQuiz() {
     questionScreen.style.display = "none";
     endScreen.style.display = "flex";
+    finalScore.textContent = currentScore;
 }
 
 async function fetchAPIGetData(difficultyChosenLink) {
@@ -142,6 +174,7 @@ function displayQuestionComponents() {
     option3 = answerChoices[2];
     option4 = answerChoices[3];
 
+    currentQuestionNumber.textContent = `Question: ${currentQuestionIndex + 1}`;
     questionContainer.textContent = question;
     answerChoiceOne.textContent = `A ${option1}`;
     answerChoiceTwo.textContent = `B ${option2}`;
