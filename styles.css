@@ -66,18 +66,26 @@ body {
     margin: 20px;
     padding: 0px;
     height: 100vh;
-    background-color: #56585c;
-    /* background-color: #2f3c50; */
+    /* background-image: linear-gradient(to top right, #7b54c9, #ad51c3, #eca18c); */
+    /* */ /* background-image: linear-gradient(
+        to top right,
+        #1f2937,
+        #31425a,
+        #597eb1,
+        #aeb9e2
+    ); */
+    background-color: rgb(29, 26, 26);
 }
 
 .title {
-    font-family: quizTitle;
+    font-family: gameFont;
     text-align: center;
-    color: yellow;
-    border: 3px solid yellow;
+    color: white;
+    /* border: 3px solid yellow; */
     border-radius: 10px;
     padding: 0px 300px 0px 300px;
     margin: 0 auto;
+    font-size: 40px;
 }
 
 /* main start screen */
@@ -91,29 +99,59 @@ body {
     justify-content: space-between;
 }
 
+hr {
+    border-color: black;
+    width: 200px;
+}
+
 .instructions {
-    margin: 50px 0px 0px 200px;
     font-family: "Courier New", Courier, monospace;
-    font-size: x-large;
+    font-size: 30px;
     font-weight: bold;
+    padding: 50px;
+    margin: 50px 0px 30px 500px;
+    border-radius: 40px;
     max-width: 500px;
-    color: rgb(255, 255, 0);
+    line-height: 29px;
+    letter-spacing: -1.6px;
+    color: black;
+    background-color: white;
+    box-shadow: -2px 3px 10px rgb(155, 155, 155);
+    transition: transform 0.3s, filter 0.5s;
+}
+
+.instructions:hover,
+.difficulty-options:hover {
+    transform: scale(1.05);
+}
+
+.blurred {
+    filter: blur(10px);
+    transform: scale(0.95);
 }
 
 .difficulty-options {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    width: 300px;
-    margin: 0px 200px 0px 0px;
-    gap: 25px;
+    align-items: center;
+    border-radius: 40px;
+    max-width: 500px;
+    height: 700px;
+    margin: 50px 500px 30px 0px;
+    padding: 50px;
+    background-color: white;
+    box-shadow: -2px 3px 10px rgb(155, 155, 155);
+    transition: transform 0.3s, filter 0.5s;
+    gap: 30px;
 }
 
 button {
-    height: 75px;
+    width: 500px;
+    height: 100px;
     font-weight: bold;
-    font-family: "Courier New", Courier, monospace;
-    font-size: x-large;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 30px;
 }
 
 #easy-button {
@@ -127,12 +165,12 @@ button {
 #easy-button:hover {
     color: white;
     transform: scale(1.03);
-    background-color: #2e9551;
+    background-color: #2e9550c0;
 }
 
 #easy-button:active {
     border: 0px;
-    background-color: #2e9550c0;
+    background-color: #1d753b;
 }
 
 #medium-button {
@@ -146,7 +184,7 @@ button {
 #medium-button:hover {
     color: white;
     transform: scale(1.03);
-    background-color: #cc9600;
+    background-color: #ddb444;
 }
 
 #medium-button:active {
@@ -165,12 +203,11 @@ button {
 #hard-button:hover {
     color: white;
     transform: scale(1.03);
-    background-color: #ff3434;
+    background-color: #ff3434a8;
 }
 
 #hard-button:active {
-    border: 0px;
-    background-color: #ff3434a8;
+    background-color: #ff3434;
 }
 
 /* main question screen */
@@ -226,6 +263,7 @@ header {
 .answer-options {
     background-color: white;
     width: 600px;
+    height: 75px;
     border-radius: 10px;
     font-family: gameFont;
     text-align: left;

@@ -24,6 +24,10 @@ const nextQuestionButton = document.querySelector(".next-question");
 const score = document.querySelector(".score");
 const finalScore = document.querySelector(".final-score");
 
+// start screen cards
+const instructionsCard = document.querySelector(".instructions");
+const difficultyCard = document.querySelector(".difficulty-options");
+
 const currentQuestionNumber = document.querySelector(".question-number");
 
 let arrayOfQuestions = [];
@@ -60,16 +64,32 @@ mediumAPILink =
 hardAPILink =
     "https://opentdb.com/api.php?amount=10&category=22&difficulty=hard&type=multiple";
 
+instructionsCard.addEventListener("mouseover", () => {
+    difficultyCard.classList.add("blurred");
+});
+
+instructionsCard.addEventListener("mouseout", () => {
+    difficultyCard.classList.remove("blurred");
+});
+
+difficultyCard.addEventListener("mouseover", () => {
+    instructionsCard.classList.add("blurred");
+});
+
+difficultyCard.addEventListener("mouseout", () => {
+    instructionsCard.classList.remove("blurred");
+});
+
 difficultyButtonsAll.forEach((button) => {
     button.addEventListener("click", async () => {
         console.log("Hello World");
-        if (button.textContent.trim() == "easy") {
+        if (button.textContent.trim() == "EASY") {
             arrayOfQuestions = await fetchAPIGetData(easyAPILink);
             console.log(arrayOfQuestions);
-        } else if (button.textContent.trim() == "medium") {
+        } else if (button.textContent.trim() == "MEDIUM") {
             arrayOfQuestions = await fetchAPIGetData(mediumAPILink);
             console.log(arrayOfQuestions);
-        } else if (button.textContent.trim() == "hard") {
+        } else if (button.textContent.trim() == "HARD") {
             arrayOfQuestions = await fetchAPIGetData(hardAPILink);
             console.log(arrayOfQuestions);
         }
