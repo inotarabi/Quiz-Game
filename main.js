@@ -1,7 +1,7 @@
 // button consts
 const difficultyButtonsAll = document.querySelectorAll(".difficulty-buttons");
 const easyButton = document.querySelector("#easy-button");
-const mediumButton = document.querySelector("#medium-button");
+const mediumButton = document.querySelector("#med-button");
 const hardButton = document.querySelector("#hard-button");
 
 // screen consts
@@ -25,8 +25,8 @@ const score = document.querySelector(".score");
 const finalScore = document.querySelector(".final-score");
 
 // start screen cards
-const instructionsCard = document.querySelector(".instructions");
-const difficultyCard = document.querySelector(".difficulty-options");
+const instructionsCard = document.querySelector(".instructions-card");
+const difficultyCard = document.querySelector(".difficulty-card");
 
 const currentQuestionNumber = document.querySelector(".question-number");
 
@@ -35,16 +35,6 @@ let answerChoices = [];
 let actualAnswerChoices = [];
 let incorrectAnswerChoices = [];
 let isQuestionDone = false;
-
-// variable that tracks game mode
-// let gameMode = "";
-
-// timer variables and consts
-// const timer1 = document.querySelector(".timer");
-// let timerMins = 0;
-// let timerSecondsOnes = 0;
-// let timerSecondsTens = 3;
-// let currentTimerId;
 
 let currentScore = 0;
 let question = "";
@@ -57,28 +47,9 @@ let chosenChoice = "";
 let currentQuestionIndex = 0;
 
 // API links based on difficulty
-easyAPILink =
-    "https://opentdb.com/api.php?amount=10&category=22&difficulty=easy&type=multiple";
-mediumAPILink =
-    "https://opentdb.com/api.php?amount=10&category=22&difficulty=medium&type=multiple";
-hardAPILink =
-    "https://opentdb.com/api.php?amount=10&category=22&difficulty=hard&type=multiple";
-
-instructionsCard.addEventListener("mouseover", () => {
-    difficultyCard.classList.add("blurred");
-});
-
-instructionsCard.addEventListener("mouseout", () => {
-    difficultyCard.classList.remove("blurred");
-});
-
-difficultyCard.addEventListener("mouseover", () => {
-    instructionsCard.classList.add("blurred");
-});
-
-difficultyCard.addEventListener("mouseout", () => {
-    instructionsCard.classList.remove("blurred");
-});
+easyAPILink = "https://opentdb.com/api.php?amount=10&category=22&difficulty=easy&type=multiple";
+mediumAPILink = "https://opentdb.com/api.php?amount=10&category=22&difficulty=medium&type=multiple";
+hardAPILink = "https://opentdb.com/api.php?amount=10&category=22&difficulty=hard&type=multiple";
 
 difficultyButtonsAll.forEach((button) => {
     button.addEventListener("click", async () => {
@@ -123,14 +94,6 @@ answerChoicesAll.forEach((button) => {
             displayNextQuestion();
         }, 2000);
     });
-});
-
-nextQuestionButton.addEventListener("click", () => {
-    currentQuestionIndex++;
-    if (currentQuestionIndex > 9) {
-        currentQuestionIndex = 0;
-    }
-    console.log(currentQuestionIndex);
 });
 
 function scoreCalc() {
