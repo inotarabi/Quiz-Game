@@ -8,6 +8,7 @@ const hardButton = document.querySelector("#hard-button");
 const startScreen = document.querySelector("#start-screen");
 const questionScreen = document.querySelector("#question-screen");
 const endScreen = document.querySelector("#end-screen");
+const playAgain = document.querySelector("#play-again");
 
 const questionContainer = document.querySelector(".question-container");
 
@@ -29,6 +30,15 @@ const instructionsCard = document.querySelector(".instructions-card");
 const difficultyCard = document.querySelector(".difficulty-card");
 
 const currentQuestionNumber = document.querySelector(".question-number");
+
+// timer variables
+const timer1 = document.querySelector(".timer");
+let timerMins = 0;
+let seconds = 0;
+let timerSecondsOnes = 0;
+let timerSecondsTens = 0;
+let currentTimerId;
+let gameMode = "";
 
 let arrayOfQuestions = [];
 let answerChoices = [];
@@ -56,12 +66,16 @@ difficultyButtonsAll.forEach((button) => {
         console.log("Hello World");
         if (button.textContent.trim() == "EASY") {
             arrayOfQuestions = await fetchAPIGetData(easyAPILink);
+            gameMode = "EASY";
             console.log(arrayOfQuestions);
         } else if (button.textContent.trim() == "MEDIUM") {
             arrayOfQuestions = await fetchAPIGetData(mediumAPILink);
+            gameMode = "MEDIUM";
+
             console.log(arrayOfQuestions);
         } else if (button.textContent.trim() == "HARD") {
             arrayOfQuestions = await fetchAPIGetData(hardAPILink);
+            gameMode = "HARD";
             console.log(arrayOfQuestions);
         }
         // change screens
@@ -70,6 +84,8 @@ difficultyButtonsAll.forEach((button) => {
 
         setVariables(arrayOfQuestions, currentQuestionIndex);
         displayQuestionComponents();
+        checkGameModeAssignTime();
+        timerTick();
     });
 });
 
@@ -80,13 +96,17 @@ answerChoicesAll.forEach((button) => {
         }
 
         if (button.textContent.substring(2) === correctAnswer) {
+            clearTimeout(currentTimerId);
             button.style.backgroundColor = "green";
+
+            scoreCalc();
         } else {
             button.style.backgroundColor = "red";
+            clearTimeout(currentTimerId);
+            highlightCorrectAnswer();
         }
 
         isQuestionDone = true;
-        scoreCalc();
 
         setTimeout(() => {
             currentQuestionIndex++;
@@ -95,6 +115,45 @@ answerChoicesAll.forEach((button) => {
         }, 2000);
     });
 });
+
+playAgain.addEventListener("click", () => {
+    endScreen.style.display = "none";
+    startScreen.style.display = "flex";
+    resetGame();
+});
+
+function checkGameModeAssignTime() {
+    if (gameMode === "EASY") {
+        seconds = 10;
+    } else if (gameMode === "MEDIUM") {
+        seconds = 20;
+    } else if (gameMode === "HARD") {
+        seconds = 30;
+    }
+}
+
+function timerTick() {
+    timerSecondsTens = Math.floor(seconds / 10);
+    timerSecondsOnes = seconds % 10;
+
+    timer1.textContent = `${timerMins}:${timerSecondsTens}${timerSecondsOnes}`;
+
+    seconds--;
+
+    if (seconds < 0) {
+        return;
+    }
+
+    currentTimerId = setTimeout(timerTick, 1000);
+}
+
+function highlightCorrectAnswer() {
+    answerChoicesAll.forEach((button) => {
+        if (button.textContent.substring(2) === correctAnswer) {
+            button.style.backgroundColor = "green";
+        }
+    });
+}
 
 function scoreCalc() {
     answerChoicesAll.forEach((button) => {
@@ -107,6 +166,7 @@ function scoreCalc() {
 }
 
 function displayNextQuestion() {
+    checkGameModeAssignTime();
     if (currentQuestionIndex >= arrayOfQuestions.length) {
         endQuiz();
         return;
@@ -114,7 +174,8 @@ function displayNextQuestion() {
 
     setVariables(arrayOfQuestions, currentQuestionIndex);
     displayQuestionComponents();
-    // timerTick();
+    clearTimeout(currentTimerId);
+    timerTick();
     resetAnswerStyles();
 }
 
@@ -128,6 +189,15 @@ function endQuiz() {
     questionScreen.style.display = "none";
     endScreen.style.display = "flex";
     finalScore.textContent = currentScore;
+}
+
+function resetGame() {
+    currentScore = 0;
+    currentQuestionIndex = 0;
+    arrayOfQuestions = [];
+    isQuestionDone = false;
+    score.textContent = "Score: 0";
+    resetAnswerStyles();
 }
 
 async function fetchAPIGetData(difficultyChosenLink) {
