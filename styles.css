@@ -20,7 +20,7 @@ body {
 }
 
 #start-screen {
-    display: flex;
+    display: none;
     flex-direction: column;
 }
 
@@ -31,7 +31,7 @@ body {
 }
 
 #end-screen {
-    display: none;
+    display: flex;
     flex-direction: column;
 }
 
@@ -198,7 +198,7 @@ header {
     display: flex;
     flex-direction: column;
     margin: 0 auto;
-    gap: 25px;
+    gap: 15px;
 }
 
 .end-screen-buttons {
@@ -208,8 +208,16 @@ header {
     transition: transform 0.3s;
 }
 
+.username-actions-container {
+    gap: 10px;
+}
+
 .end-screen-buttons:hover {
-    transform: scale(1.05);
+    transform: scale(1.03);
+}
+
+input {
+    padding: 10px;
 }
 
 @media (max-width: 1265px) {

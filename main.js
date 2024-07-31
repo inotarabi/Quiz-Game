@@ -1,4 +1,4 @@
-// button consts
+// diffuculty button consts
 const difficultyButtonsAll = document.querySelectorAll(".difficulty-buttons");
 const easyButton = document.querySelector("#easy-button");
 const mediumButton = document.querySelector("#med-button");
@@ -8,9 +8,25 @@ const hardButton = document.querySelector("#hard-button");
 const startScreen = document.querySelector("#start-screen");
 const questionScreen = document.querySelector("#question-screen");
 const endScreen = document.querySelector("#end-screen");
-const playAgain = document.querySelector("#play-again");
 
+//input field consts
+const usernameInput = document.getElementById("username-input");
+const infoSubmit = document.getElementById("user-submit");
+
+// end screen consts
+const viewLeader = document.getElementById("leaderboard-button");
+const playAgain = document.getElementById("play-again");
+
+let userInfoArray = [];
+let currentUserInfoArray = [
+    {
+        username: "",
+        scoreVal: "",
+    },
+];
+// question consts
 const questionContainer = document.querySelector(".question-container");
+const currentQuestionNumber = document.querySelector(".question-number");
 
 // answer choice consts
 const answerChoicesAll = document.querySelectorAll(".answer-options");
@@ -19,8 +35,6 @@ const answerChoiceTwo = document.querySelector("#option2");
 const answerChoiceThree = document.querySelector("#option3");
 const answerChoiceFour = document.querySelector("#option4");
 
-const nextQuestionButton = document.querySelector(".next-question");
-
 // score consts
 const score = document.querySelector(".score");
 const finalScore = document.querySelector(".final-score");
@@ -28,8 +42,6 @@ const finalScore = document.querySelector(".final-score");
 // start screen cards
 const instructionsCard = document.querySelector(".instructions-card");
 const difficultyCard = document.querySelector(".difficulty-card");
-
-const currentQuestionNumber = document.querySelector(".question-number");
 
 // timer variables
 const timer1 = document.querySelector(".timer");
@@ -40,12 +52,14 @@ let timerSecondsTens = 0;
 let currentTimerId;
 let gameMode = "";
 
+// choice arrays
 let arrayOfQuestions = [];
 let answerChoices = [];
 let actualAnswerChoices = [];
 let incorrectAnswerChoices = [];
 let isQuestionDone = false;
 
+// question vars
 let currentScore = 0;
 let question = "";
 let correctAnswer = "";
@@ -121,6 +135,31 @@ playAgain.addEventListener("click", () => {
     startScreen.style.display = "flex";
     resetGame();
 });
+
+infoSubmit.addEventListener("click", (event) => {
+    event.preventDefault();
+    const username = usernameInput.value;
+    const newUser = {
+        username: username,
+        scoreVal: currentScore,
+    };
+    console.log(newUser);
+    addUserData(newUser);
+    console.log(localStorage);
+    console.log(localStorage.userData);
+    usernameInput.value = "";
+});
+
+function getUserData() {
+    const userData = localStorage.getItem("userData");
+    return userData ? JSON.parse(userData) : [];
+}
+
+function addUserData(newUser) {
+    const existingData = getUserData();
+    existingData.push(newUser);
+    localStorage.setItem("userData", JSON.stringify(existingData));
+}
 
 function checkGameModeAssignTime() {
     if (gameMode === "EASY") {
