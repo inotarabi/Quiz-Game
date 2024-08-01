@@ -35,6 +35,11 @@ body {
     flex-direction: column;
 }
 
+#leaderboard-screen {
+    display: none;
+    flex-direction: column;
+}
+
 .title {
     display: flex;
     justify-content: center;

@@ -150,6 +150,11 @@ infoSubmit.addEventListener("click", (event) => {
     usernameInput.value = "";
 });
 
+viewLeader.addEventListener("click", () => {
+    endScreen.style.display = "none";
+    viewLeader.style.display = "flex";
+});
+
 function getUserData() {
     const userData = localStorage.getItem("userData");
     return userData ? JSON.parse(userData) : [];
