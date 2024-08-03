@@ -200,12 +200,19 @@ function timerTick() {
 
     timer1.textContent = `${timerMins}:${timerSecondsTens}${timerSecondsOnes}`;
 
-    seconds--;
-
-    if (seconds < 0) {
+    if (seconds <= 0) {
+        clearTimeout(currentTimerId);
+        isQuestionDone = true;
+        highlightCorrectAnswer();
+        setTimeout(() => {
+            currentQuestionIndex++;
+            isQuestionDone = false;
+            displayNextQuestion();
+        }, 2000);
         return;
     }
 
+    seconds--;
     currentTimerId = setTimeout(timerTick, 1000);
 }
 
@@ -228,12 +235,11 @@ function scoreCalc() {
 }
 
 function displayNextQuestion() {
-    checkGameModeAssignTime();
     if (currentQuestionIndex >= arrayOfQuestions.length) {
         endQuiz();
         return;
     }
-
+    checkGameModeAssignTime();
     setVariables(arrayOfQuestions, currentQuestionIndex);
     displayQuestionComponents();
     clearTimeout(currentTimerId);

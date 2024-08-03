@@ -20,7 +20,7 @@ body {
 }
 
 #start-screen {
-    display: none;
+    display: flex;
     flex-direction: column;
 }
 
@@ -31,7 +31,7 @@ body {
 }
 
 #end-screen {
-    display: flex;
+    display: none;
     flex-direction: column;
 }
 
