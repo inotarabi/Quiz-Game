@@ -8,13 +8,15 @@ const hardButton = document.querySelector("#hard-button");
 const startScreen = document.querySelector("#start-screen");
 const questionScreen = document.querySelector("#question-screen");
 const endScreen = document.querySelector("#end-screen");
+const leaderboardScreen = document.querySelector("#leaderboard-screen");
 
 //input field consts
 const usernameInput = document.getElementById("username-input");
 const infoSubmit = document.getElementById("user-submit");
+const leaderboardContainer = document.querySelector(".leaderboard-containter");
 
 // end screen consts
-const viewLeader = document.getElementById("leaderboard-button");
+const viewLeaderButton = document.getElementById("leaderboard-button");
 const playAgain = document.getElementById("play-again");
 
 let userInfoArray = [];
@@ -145,15 +147,31 @@ infoSubmit.addEventListener("click", (event) => {
     };
     console.log(newUser);
     addUserData(newUser);
+    updateLeaderboard();
     console.log(localStorage);
     console.log(localStorage.userData);
     usernameInput.value = "";
 });
 
-viewLeader.addEventListener("click", () => {
+viewLeaderButton.addEventListener("click", () => {
     endScreen.style.display = "none";
-    viewLeader.style.display = "flex";
+    leaderboardScreen.style.display = "flex";
 });
+
+function updateLeaderboard() {
+    const existingData = getUserData();
+
+    for (let index = 0; index <= existingData.length; index++) {
+        var newestUserAdd = document.createElement("div");
+        var newestScoreAdd = document.createElement("div");
+        newestUserAdd.classList.add("leader-username");
+        newestScoreAdd.classList.add("leader-score");
+        leaderboardContainer.appendChild(newestUserAdd);
+        leaderboardContainer.appendChild(newestScoreAdd);
+        newestUserAdd.textContent = existingData[index].username;
+        newestScoreAdd.textContent = existingData[index].scoreVal;
+    }
+}
 
 function getUserData() {
     const userData = localStorage.getItem("userData");
